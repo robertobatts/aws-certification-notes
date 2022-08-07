@@ -32,3 +32,21 @@ You can also set MFA (Multi Factor Authentication). The options for MFA devices 
 
 ### How to activate MFA?
 Click to the account username on the top right, then Security Credentials > Multi-factor Authentication > Activate MFA, and choose the authentication type from there.
+
+## IAM Roles for Services
+Roles are used to give AWS Services permissions to do actions on your behalf. For example, an application deployed in a EC2 instance might want to upload something on S3, this action has to be allowed through Roles.
+
+## IAM Security Tools
+- **Credentials Report** (account-level): a report that lists all your account's users and the status of their cedentials
+- **Access Advisor** (user-level): it shows the service permissions granted to a user and when those services were last accessed
+
+## IAM Guidelines & Best Practices
+- Don't use root account except for AWS account setup
+- Create a IAM User for each person who needs to access your account
+- Assign users to groups and assign permissions to groups
+- Create a strong password policy
+- Use and enforce MFA
+- Create and use Roles to give permissions to AWS Services
+- Use Access Keys for programmatic access (CLI/SDK)
+- Audit permissions of your account with IAM Credentials Report
+- Never share IAM users and Access Keys
