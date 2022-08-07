@@ -23,3 +23,12 @@ Consists of:
 	- Resource, list of resources to which actions are applied to
 	- Condition (optional) for when this policy is in effect
 
+## IAM Password Policy
+In AWS you can set up a password policy, requiring a user to have a minimum length or a specific set of characters.
+You can also set MFA (Multi Factor Authentication). The options for MFA devices are:
+- Virtual device (Google Authenticator, Authy)
+- Universal 2nd Factor Authenticator (Yubikey)
+- Hardware Key Fob Device
+
+### How to activate MFA?
+Click to the account username on the top right, then Security Credentials > Multi-factor Authentication > Activate MFA, and choose the authentication type from there.
