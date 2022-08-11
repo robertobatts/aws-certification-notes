@@ -16,7 +16,7 @@
 ### Volume Types
 There are 6 types:
 - **gp2/gp3 (SSD)**: General purpose SSD volume that balances price and performance for a wide variety of workloads. In gp3 you can increase size and IOPS independently, instead in gp2 they are linked together
-- **io1/io2 (SSD)**: Highest performance SSD volume for mission-critical low-latency or high-throughput workloads
+- **io1/io2 (SSD)**: Highest performance SSD volume for mission-critical low-latency or high-throughput workloads. They are also called Provisioned IOPS volumes
 - **st1 (HDD)**: Low cost HDD volume designed for frequently accessed, throughput-intensive workloads
 - **sc1 (HDD)**: Lowest cost HDD volume designed for less frequently accessed workloads
 
@@ -83,7 +83,7 @@ When you created an encrypted EBS volume, you get the following:
 
 ## EC2 Instance Store
 - It's a high performance hardware disk, faster then EBS volumes
-- They have very high IOPS
+- They have very high IOPS, up to 3.3 Million IOPS
 - EC2 Instance Store lose their storage if they're stopped
 - Good for buffer / cache / scratch data / temporary content
 - Risk of data loss if hardware fails

@@ -12,7 +12,7 @@ Overall you should try to avoid using Elastic IP:
 - Or use a Load Balancer
 
 ## Placement Groups
-Sometimes you want to have control over the EC2 Instance placement strategy. Thisn strategy can be defined using placement groups
+Sometimes you want to have control over the EC2 Instance placement strategy. This strategy can be defined using placement groups
 When you create a group, you can specify one of the following strategies:
 - **Cluster** - clusters instances into a low-latency group in a single AV
 - **Spread** - spreads instances across underlyng hardware (max 7 instances per group per AZ)
@@ -110,7 +110,7 @@ In some cases you may want to change the vCPU options of an instance during its 
 - No need for 1 or 3 year commitment
 - Capacity access is immediate, you get billed as soon as it starts
 - You can specify:
-	- AV in which to reserve the capacity (only one)
+	- AZ in which to reserve the capacity (only one)
 	- Number of instances for which to reserve capacity
 	- The instance attributes, including the instance type, tenancy and OS
 - Combine with Reserved instances and Saving Plans to cut costs

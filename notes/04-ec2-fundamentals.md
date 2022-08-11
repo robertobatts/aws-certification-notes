@@ -1,6 +1,6 @@
 # AWS EC2 Fundamentals
 - EC2 = Elastic Comput Cloud
-- It's an Infrastracture as a Service, and it's one of the most populare services in AWS
+- It's an Infrastracture as a Service, and it's one of the most popular services in AWS
 - It allows:
 	- Renting virtual machines (EC2)
 	- Storing data on virtual drives (EBS)
@@ -176,7 +176,7 @@ Spot instances can be one-time type or persistent. If they are one-time, once th
 - You always have access to EC2 capacity when you need it
 - No time commitment (create/cancel anytime), no billing discounts
 - Combine with Regional Reserved Instances and Saving Plans to benefit from billing discounts
-- You're charged at On-Dament rate whether you run instances or not
+- You're charged at On-Demand rate whether you run instances or not
 - Suitable for short-term, uninterrupted workloads that needs to be in a specific AZ
 
 ### Spot Fleets
