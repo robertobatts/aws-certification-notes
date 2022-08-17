@@ -114,3 +114,9 @@ In some cases you may want to change the vCPU options of an instance during its 
 	- Number of instances for which to reserve capacity
 	- The instance attributes, including the instance type, tenancy and OS
 - Combine with Reserved instances and Saving Plans to cut costs
+
+
+## EC2 Instance metadata
+- An EC2 instance can learn about itself without using an IAM Role
+- To do that, the instance has to do a call to the following URL http://169.254.169.254/latest/-meta-data
+- You can retrieve the IAM Role name from the metadata, but you cannot retrieve the IAM policy
