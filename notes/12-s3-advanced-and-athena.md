@@ -85,7 +85,7 @@ You can move between classes manually or using S3 Lifecycle configurations. The 
 ### Glacier
 - Low cost object storage meant for archiving/backup
 - You pay for storage and for retrieving objects
-- **Glacier instant Retrieval**
+- **Glacier Instant Retrieval**
 	- Millisecond retrieval, great for data accessed once a quarter
 	- Minimum storage duration of 90 days
 - **Glacier Flexible Retrieval**
@@ -155,6 +155,7 @@ You can move between classes manually or using S3 Lifecycle configurations. The 
 ### Transfer Acceleration
 - Increase transfer speed by transferring file to an AWS edge location which will forward the data to the S3 bucket in the target region
 - Compatible with multi-part upload
+- The name of the bucket must be DNS compliant and not contain periods in order to use Transfer Acceleration
 
 ### Byte-Range Fetches
 - Parallelize GETs by requesting specific byte ranges
