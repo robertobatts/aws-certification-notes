@@ -263,3 +263,50 @@
 - Allows instances in your VPC outbound connections over IPv6 while preventing the internet to initiate an IPv5 connection to your instances
 - You must update the Route Tables
 
+## Networking Cost
+- Use Private IP instead of Public IP to save money on network cost and have better performance
+- Use same AZ for maximum savings (at the cost of not having high availability)
+
+![[networking-cost.png]]
+
+### Minimize egress traffic cost
+- **Egress traffic**: outbound traffic (from AWS to outisde)
+- **Ingress traffic**: inbound traffic (from outside to AWS)
+- Try to keep the traffic inside AWS to minimize costs
+- Direct Connect location that are co-located in the same AWS Region result in lower cost for egress network
+
+### S3 Data Transfer Pricing
+- S3 ingress: free
+- S3 egress: $0.09 per GB
+- S3 Transfer Acceleration: from $0.04 to $0.08 to add on top of Data Transfer cost
+- S3 to CloudFront: free
+- CloudFront to Internet: $0.085 per GB
+- S3 Cross Region Replication: $0.02 per GB
+
+![[s3-pricing.png]]
+
+### NAT Gateway vs Gateway VPC Endpoint Pricing
+- NAT Gateway: $0.045 per hour + $0.045 per GB processed
+- VPC Endpoint: $0.01 per GB transfer in/out
+
+![[nat-vs-vpc-endpoint-pricing.png]]
+
+## AWS Network Firewall
+- Protect your entire VPC
+- From Layer4 to Layer 7 protection
+- Any direction, you can inspect:
+	- VPC to VPC traffic
+	- Outbound to internet
+	- Inbound from internet
+	- To/from Direct Connect and Site-to-Site VPN
+- Internally it uses AWS Gateway Load Balancer
+- Rules can be centrally managed cross-account by AWS Firewall Manager to apply to many VPCs
+- Supports 1000s of rules, you can filter by:
+	- IP and port
+	- Protcol
+	- Stateful domain list rule groups
+	- General pattern matching using regex
+- Traffic filtering: Allow, drop, or alert for the traffic that matches the rules
+- Active flow inspection to protect against network threats with intrusion prevention capabilities (like Gateway Load Balancer nut is all managed by AWS)
+- Send logs of rule matches to S3, CloudWatch Logs, Kinesis Data Firehose
+
