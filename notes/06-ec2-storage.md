@@ -25,6 +25,7 @@ For EC2 instances, only gp2, gp3, io1 and io2 can be used as root volume
 ### EBS Multi-Attach
 - Only if the volume is io1 or io2
 - The EC2 instances must be in the same AZ
+- Up to 16 EC2 Instaces at a time
 - Each instance has full read and write permissions to the volume
 - Must use a file system that's cluster-aware (not XFS, EX4, etc...)
 - Use Cases:

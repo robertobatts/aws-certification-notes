@@ -62,7 +62,7 @@ Snapshots are faster to restore than Snowball, because sending Snowball back to 
 - Supports:
 	- Homogeneous migrations: ex Oracle to Oracle
 	- Heterogeneous migrations: ex Microsoft SQL Server to Aurora
-- Continuow Data Replication using CDC (Change Data Capture)
+- Continuos Data Replication using CDC (Change Data Capture)
 - You must create an EC2 instance to perform the replication task
 
 ### DMS Sources and Targets
@@ -90,3 +90,98 @@ Snapshots are faster to restore than Snowball, because sending Snowball back to 
 
 ![[dms-continuous-replication.png]]
 
+## RDS and Aurora MySQL/PostgreSQL Migrations
+- RDS MySQL to Aurora MySQL (same for PostgreSQL)
+	- Option 1: DB Snapshots from RDS restored as Aurora (can have downtime when switching database)
+	- Option 2: Create an Aurora Read Replica from your RDS, and when the replication lag is 0, promote it as its own db cluster
+- External MySQL to Aurora MySQL
+	- Option 1:
+		- Use Percona XtraBackup to create a file backup in S3
+		- Create an Aurora db from S3
+	- Option 2:
+		- Create an Aurora db
+		- Use the mysqldump utility to migrate MySQL into Aurora (slower than S3)
+- External PostgreSQL to Aurora PostgreSQL
+	- Create a backup and put it in S3
+	- Import it using the aws_s3 Aurora extension
+- Use DMS if both databases are up and running to do continuous replication
+
+## On-Premise strategy with AWS
+- You can download AMazon Linux 2 AMI as a VM (.iso format) and load it into VMWare, VirtualBox, KVM, Microsoft Hyper-V
+- VM Import/Export
+	- Migrate existing applications into EC2
+	- Create a DR repoistory strategy for your on-premise VMs
+	- Can export back the VMs from EC2 to on -premise
+- AWS Application Discovery Service
+	- Gather information about your on-premise servers to plan a migration
+	- Server utilization and dependency mappings
+	- Track with AWS Migration Hub
+- AWS Database Migration Service (DMS)
+	- replicate On-premis -> AWS, AWS -> AWS, AWS -> On-premise
+	- Works with various databases
+- AWS Server Migration Service (SMS)
+	- Increamental replication of on-premise live servers to AWS
+
+## AWS Backup
+- Fully managed service
+- Centrally manage and automate backups across AWS services
+- No need to create custom scripts and manual processes
+- Supported services: EC2, EBS, S3, RDS, Aurora, DynamoDB, DocumentDB, Neptune, EFS, FSx, Storage Gateway
+- Supports cross-region backups
+- Supports cross-account backups
+- Supports PITR (point in time recovery) for supported services
+- On-demand and Scheduled backups
+- Tag-based backup policies
+- You create backup policies known as Backup Plans, you can configure:
+	- Backup frequency (every 12 hours, daily, weekly, monthly, cron expression)
+	- Backup window
+	- Transition to Cold Storage after configurable time
+	- Retention Period
+
+### AWS Backup Vault Lock
+- Enforce a WORM (Write Once Read Many) state for all the backups that you store in your AWS Backup Vault
+- Backups can't be deleted
+- Defense to protect your backups against
+	- Inadvertent or malicious delete operations
+	- Updates that shorten or alter retention periods
+- Even the root user cannot delete backups when enabled
+
+## AWS Application Discovery Service
+- Plan migration prohects by gathering information about on-premises data centers
+- Server utilization data and dependency mapping are important for migrations
+- There are two types of migrations you can do:
+	- **Agentless Discovery (AWS Agentless Discovery Connector)**
+		- VM inventory, configuration and performance history such as CPU, memory and disk usage
+	- **Agent-based Discovery (AWS Application Discoverey Agent)**
+		- System confriguration, system performance, running processes and details of the network connections between systems
+- Resulting data can be viewed within AWS Migration Hub
+
+## AWS Application Migration Service (MGN)
+- Lift-and-shift (rehost) solution which simplify migrationg applications to AWS
+- Converts your physical, virtual and cloud-based servers to run natively on AWS
+- You have to install a AWS Replication Agent on your data centers, this will perform continuous replication of your disk to move everything to AWS
+- DSupports wide range of platforms, operating systems and databases
+- Minimal downtime, reduced costs
+
+## Transferring large amount of data into AWS
+- Example: transfer 200 TB of data in the cloud. We have a 100 Mbps internet connection
+- Over the internet / Site-to-Site VPN:
+	- Immediate to setup
+	- Will take 200(TB)x1000(GB)x1000(MB)x8(Mb)/100Mbps = 16000000s = 185d
+- Over direct connect 1 Gbps:
+	- Long for the one-time setup (over a month)
+	- Will take 18.5 days
+- Over Snowball:
+	- Will take 2 to 3 snowballs in parallel
+	- Takes about 1 week for the end-to-end transfer
+	- Can be combined with DMS
+- For on-going replication/transfers: Site-to-Site VPN or DX (Direct Connect) with DMS or DataSync
+
+## VMWare Cloud on AWS
+- Some customers use VMware Cloud to manage their on-premises Data Center
+- They want to extend the Data Cenbter capacity to AWS, but keep using the VMware Cloud software to manage everything
+- You can extend your entire VMWare Cloud infrastructure to run on AWS
+- Use cases
+	- Migrate your VMware vSphere-based workloads to AWS
+	- Run your production workloads across VMware vSphere-based private, public and hybrid cloud environments
+	- Have a disater recovery strategy

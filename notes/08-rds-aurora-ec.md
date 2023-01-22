@@ -64,6 +64,12 @@ The only disadvantage is that you can't SSH into your instances
 	- A new DB is restored from the snapshot in a new AZ
 	- Synchronization is established between the two databases
 
+### RDS Custom for Oracle and Microsft SQL Server
+- Managed Oracle and Microsoft SQL Server Database with OS and database customization
+- RDS: Automates setup, operation and scaling of database
+- Custom: access to the underlying database and OS so you can: configure settings, install patches, enable native features, access the underlying EC2 instance using SSH or SSM Session Manager (full admin access)
+- De-activate Automation Mode to perform your customization, so RDS doesn't perform any operation while you do your customization
+
 ### RDS Encryption
 - Rest Encryption
 	- Possibility to encrypt the master and read replicas with AWS KMS- AES-256 encryption
@@ -96,6 +102,7 @@ The only disadvantage is that you can't SSH into your instances
 	- IAM policies help control who can manage AWS RDS
 	- Traditional Username and Password can be used to log into the db
 	- IAM-based authentication can be used to login into MySQL and PostgreSQL
+- No SSH (except for RDS Custom)
 
 #### IAM Authentication
 - It works for MySQL and PostgreSQL
@@ -104,6 +111,17 @@ The only disadvantage is that you can't SSH into your instances
 - Network in/out must be encrypted using SSL
 
 ![[iam-auth-token.png]]
+
+### RDS Proxy
+- Fully managed database proxy for RDS
+- Allows apps to pool and share DB connections established with the database
+- Improving database efficiency by reducing the stress on database resources (e.g. CPU, RAM) and minimize open connections (and timeouts)
+- Serverless, autoscaling, highly available (multi-AZ)
+- Reduced RDS and Aurora failover time by up to 66%
+- Supports RDS (MySQL, PostgreSQL, MariaDB) and Aurora
+- No code changes required for apps, just set the url connection string to the proxy
+- Enforce IAM Authentication for db and securely store credentials in AWS Secret Manager
+-  Never publicly accessible, must be accessed from VPC
 
 ## Amazon Aurora
 - Aurora is a properietary (not open sourced)
@@ -171,6 +189,29 @@ You can define a subset of Aurora instances as a Custom Endpoint. A reason to do
 	- Amazon Comprehend (for sentiment analysis)
 - You don't need to have ML experience
 - Use case: fraud detection, ads targeting, sentiment analysis, product recommendations
+
+### Backup and Monitoring
+- Automated backups:
+	- Daily full backup of the database (during the backup window)
+	- Transaction logs are backed-up by RDS every 5 minutes, this means you haven the ability to restore to any point in time (from oldest backup to 5 minutes ago)
+	- 1 to 35 days of retention, set 0 to disable automated 
+ - Manual DB Snapshots
+	 - Manually triggered by the user
+	 - Retention of backup for as long as you want
+
+In a stopped RDS db, you will still pay for storage. If you plan on stopping it for a long time, you should snapshot and restore instead
+
+### RDS and Aurora Restore options
+- Restoring RDS / Aurora backup or a snapshot creates a new database
+- Restoring MySQL RDS database from S3
+- Restoring MySQL Aurora cluster from S3
+
+### Aurora Database Cloning
+- Create a new Aurora DB Cluster from an existing one
+- Faster than snapshot and restore
+- The new DB Cluster uses the same cluster volume and data as the original but will change when data updates are made
+- Very fast and cost effective
+- Useful to create a staging database from a production database without impacting the production db
 
 ## ElastiCache
 - Managed version of Redis or Memcached
