@@ -113,6 +113,47 @@ Questions to choose the right database based on your architecture:
 - **Performance**: scales to thousands of read/writes per second, transfer acceleration/multi-part for big files
 - **Cost**: pay per storage usage, network cost, requests number
 
+## DocumentDB
+- DocumentDB is an "Aurora" version of MongoDB
+- Used to store, query and index json data
+- Similar deployment concepts as Aurora
+- Fully managedm, highly available with replication across 3 AZ
+- DocumentDB storage automatically grows in increaments of 10GB, up to 64TB
+- Automatically scales to workloads with millions of requests per second
+
+## Keyspaces (for Apache Cassandra)
+- Apache Cassandra is an open-source NoSQL distributed database
+- Keyspaces is a managed Apache Cassandra compatible database
+- Serverless, scalable, highly available, fully managed by AWS
+- Automatically scales tables up/down based on the application's traffic
+- Tables are replicated 3 times across multiple AZs
+- Use the Cassandra Query Language for querying
+- Single-digit millisecond latency at any scale, 1000s of requests per second
+- Capacity: on-demand mode or provisioned mode with auto-scaling
+- Encryption, backup, PITR up to 35 days
+- Use cases: store IoT devices info, time-series data, etc...
+
+## QLDB (Quantum Ledger Database)
+- A ledger is a book recording financial transactions
+- Fully managed, serverless, highly available, replication across 3 AZs
+- Used to review history of all the changes made to your application data over time
+- Immutable system: no entry can be removed or modified, cryptographically verifiable
+- 2-3x better performance than common ledger blockchain frameworks
+- Manipulate date using SQL
+- Difference with Amazon Managed Blockchain: QLDB is not decentralized, in line with many financial regulation rules
+
+## Timestream
+- Fully managed, fast, scalable, serverless time series database
+- Automatically scales up/down to adjust capacity
+- Store and analyze trillions of events per day
+- 1000s times faster and 1/10th the cost of relational databases
+- Scheduled queries, multi-measure records, SQL compatibility
+- Data storage tiering: recente data kept in memory and historical data kept in a cost-optimized storage
+- Built-in time series analytics functions (help you identify pattern in your data in neaer real-time)
+- Encryption in transit and at rest
+- User cases: IoT apps, operational applications, real-time analytics, etc...
+- It can receive data from: AWS IoT, Lambda, Prometheus, Telegraf, Kineses Data Analytics
+
 ## Athena
 - Fully Serverless database with SQL capabilities
 - Used to query data in S3
