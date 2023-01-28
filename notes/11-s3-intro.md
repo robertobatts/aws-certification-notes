@@ -67,7 +67,7 @@ There are 4 methods of encrypting objects in S3:
 	- IAM policies - which API calls should be allowed for a specific user from IAM console
 - **Resource based**
 	- Bucket Policies - bucket wide rules from the S3 console - allows cross account
-	- Object Access Control List (ACL) - finer grain
+	- Object Access Control List (ACL) - finer grain, objects does not inherit the ACL of the bucket
 	- Bucket Access Control List (ACL) - less common
 
 ### Bucket Policies
@@ -107,3 +107,21 @@ There are 4 methods of encrypting objects in S3:
 ## S3 CORS
 - If a client does a cross-origin request on our S3 bucket, we need to enable the correct CORS headers
 - You can allow for a specific origin or for * (all origins)
+
+## S3 Replication
+- You can replicate asyncronously a bucket into another region
+- Must enable Versioning in source and destination buckets
+- **Cross Region Replication (CRR)**
+- **Same Region Replication (SRR)**
+- Buckets can be in different AWS accounts
+- Must give proper IAM perfmissions to S3 for read/write
+- After you enable Replication, only new objects are replicated
+	- You can replicate existing objects using **Batch Replication**
+- Use cases:
+	- CRR - compliance, lower latency access, replication across accounts
+	- SRR - log aggregation, live replication between production and test accounts
+
+- For DELETE operations
+	- Can replicate delete markers from source to target (optional setting)
+	- Deletions with a version ID are not replicated (to avoid malicious deletes)
+- There is no chaining of replication: if bucket 1 has replication into bucket 2, and bucket 2 has replication into bucket 3, objects created in bucket 1 will not be replicated into bucket 3

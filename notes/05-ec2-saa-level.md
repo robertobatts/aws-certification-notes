@@ -14,7 +14,7 @@ Overall you should try to avoid using Elastic IP:
 ## Placement Groups
 Sometimes you want to have control over the EC2 Instance placement strategy. This strategy can be defined using placement groups
 When you create a group, you can specify one of the following strategies:
-- **Cluster** - clusters instances into a low-latency group in a single AV
+- **Cluster** - clusters instances into a low-latency group in a single AZ
 - **Spread** - spreads instances across underlyng hardware (max 7 instances per group per AZ)
 - **Partition** - spreads instances across many different partitions (which rely on differet sets of racks) within an AZ. Scales to 100s of EC2 instances per group
 
@@ -31,7 +31,7 @@ When you create a group, you can specify one of the following strategies:
 
 ### Spreads
 **Pros**
-- Can span across different AVs
+- Can span across different AZs
 - Reduced risk of simultaneous failure
 - EC2 Instances are on different physical hardware
 **Cons**
@@ -64,7 +64,7 @@ It's a logical component in a VP that represents a **virtual network card**. The
 - MAC address
 
 ENI can be created independently and be attached to EC2 instances, or moved from an instance to another. For example, if a private IP is attached to an instance this instance has failure, the ENI of that IP can be moved to a working instance, therefore the requests on that same IP will start to work again.
-ENIs are bound to a specific AV.
+ENIs are bound to a specific AZ.
 To know more about ENI, read the following blog https://aws.amazon.com/blogs/aws/new-elastic-network-interfaces-in-the-virtual-private-cloud/
 
 ## EC2 Hibernate

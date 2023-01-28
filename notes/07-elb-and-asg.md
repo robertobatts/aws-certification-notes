@@ -28,16 +28,9 @@
 - Separate public traffic from private traffic
 
 ### Types of load balancers in AWS
-- **Classic Load Balancer** (v1 - old generation): HTTP, HTTPS, TCP, SSL
 - **Application Load Balancer** (v2 - new generation): HTTP, HTTPS, Web Socket
 - **Network Load Balancer** (v2 - new generation): TCP, TLS, UDP
 - **Gateway Load Balancer**: Operates at layer 3 (network layer)
-
-#### CLB - Classic Load Balancer
-- Supports TCP (layer4), HTTP and HTTPS (layer 7)
-- Helath checks are TCP or HTTP
-- Fixed hostname
-- Will be dismissed on 15 August 2022
 
 #### ALB - Application Load Balancer
 - Support for HTTP/2 and WebSockets
@@ -50,7 +43,6 @@
 	- Routing based on Query String, Headers (example.com/users?id=123&order=false)
 - Great fit for microservices and container-based application (e.g. Docker and Amazon ECS)
 - Port mapping feature to redirect to a dynamic port in ECS
-- To achieve the same result with a CLB, we would need multiple CLBs per application
 
 ![[alb-traffic-1.png]]
 

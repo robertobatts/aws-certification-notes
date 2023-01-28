@@ -208,3 +208,15 @@ You can move between classes manually or using S3 Lifecycle configurations. The 
 	- Governance mode: users can't overwrite or delete an object version or alter its lock settings unless they have special permissions
 	- Compliance mode: a protected object version can't be overwritten or deleted by any user, including the root user of the account. When an object is locked in compliance mode, its retention mode can't be changed and its retention period can't be shortened
 
+
+## S3 Batch Operations
+- Perform bulk operations on existing S3 objects with a single request, example:
+	- Modify object metadata and properties
+	- Copy objects between S3 buckets
+	- Encrypt un-encrypted objects
+	- Modify ACLs, tags
+	- Restore objects from S3 Glacier
+	- Invoke Lambda to perform custom action on each object
+- A job consists of a list of objects, the action to perform and optional paramters
+- S3 Batch Operations manages, retries, track progress, sends completion notifications, generate reports...
+- You can use **S3 Inventory** to get object list and use S3 Select to filter your objects

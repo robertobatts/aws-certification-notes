@@ -1,7 +1,7 @@
 # EC2 Instance Storage
 
 ## EBS Volume
-- EBS (Elastic Block Store) Volume is a network drive you can attach to rou instances while they run
+- EBS (Elastic Block Store) Volume is a network drive you can attach to run instances while they run
 	- it can be detached from an EC2 instance and attached to another one quickly
 - It allows instances to persist data, even after their termination
 - They can only be mounted to one instance at a time
@@ -63,7 +63,7 @@ When you created an encrypted EBS volume, you get the following:
 - Create an EBS snapshot of the volume
 - Encrypt the EBS snapshot using copy
 - Create new ebs volume from the snapshot (the volume will also be encrypted)
-- Now you ca attach the encrypted volume to the original instance
+- Now you can attach the encrypted volume to the original instance
 
 ## AMI
 - AMI = Amazon Machine Image
@@ -109,7 +109,7 @@ When you created an encrypted EBS volume, you get the following:
 
 ##### Performance mode (set at creation time)
 - General purpose (default): latency-sensitive use cases (web server, CMS, etc...)
-- Max I/O: higher latency and throughput, highly parallel (big data, media processing)
+- Max I/O: better latency and throughput, highly parallel (big data, media processing)
 
 ##### Throughput mode
 - Bursting: 1 TB = 50 MiB/s + burst of up to 100 MiB/s (increases with file system size)
