@@ -13,7 +13,7 @@
 - **S3 bucket**
 	- For distributing files and caching them at the edge
 	- Enanched security with CloudFront Origin Access Identity (OAI)
-	- CloudFront can also be used as an ingrass to upload files to S3
+	- CloudFront can also be used as an ingress to upload files to S3
 - **Custom Origin (HTTP)**
 	- Application Load Balancer
 	- EC2 instance
@@ -42,6 +42,20 @@ Using S3 allow to restrict the access to only CloudFront through OAI. If OAI is 
 	- Read only
 	- Great for dynamic content that needs to be available in low-latency in a few regions
 
+### CloudFront Pricing
+- CloudFront Edge locations are all around the world, so the cost of data out per edge location varies. In general the cost is cheaper in US, and higher in Asia
+- You can reduce the number of edge locations for cost reduction
+- Three price classes:
+	- Class All: all regions - best performance
+	- Class 200: most regions, but excludes the most expensive regions
+	- Class 100: only the least expensive regions
+
+### CloudFront Cache Invalidation
+- In case you update the backend origin, CloudFront doesn't know about it and will only get the refreshed content after the TTL has expired
+- However, you can force an entire or partial cache refresh by performing a CloudFront Invalidation
+- You can invalidate all files (\*) or a special path (/images/\*)
+
+
 ### CloudFront Signed URL and Signed Cookies
 - You want to distribute paid shared content to premium users over the world
 - We can use CloudFront Segned URL/Cookie. We attach a policy with:
@@ -65,17 +79,6 @@ Using S3 allow to restrict the access to only CloudFront through OAI. If OAI is 
 	- Uses the IAM krey of the signing IAM principal
 	- Limited lifetime
 
-### CloudFront Pricing
-- The cost of data out per edge location depends on the location
-- The more data you transfer, the lower is the cost per GB
-- Cheaper locations are US and EU
-
-#### Price Classes
-- You can reduce the number of edge locations for ost reduction
-- Three price classes:
-	- Price Class All: all regions, best performance
-	- Price Class 200: most regions, but excludes the most expensive regions
-	- Price Class 100: only the least expensive regions
 
 ### Multiple Origin
 - To route to different kind of origins based on the content type

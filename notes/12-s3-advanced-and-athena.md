@@ -203,10 +203,10 @@ You can move between classes manually or using S3 Lifecycle configurations. The 
 - Block an object version deletion for a specified amount of time
 - Object retention:
 	- Retention period: specifies a fixed period
-	- Legal Hold: same protection, no expiry date
+	- Legal Hold: same protection, no expiry date. Can be placed and removed with the *s3:PutObjectLegalHold* IAM permission
 - Modes:
-	- Governance mode: users can't overwrite or delete an object version or alter its lock settings unless they have special permissions
-	- Compliance mode: a protected object version can't be overwritten or deleted by any user, including the root user of the account. When an object is locked in compliance mode, its retention mode can't be changed and its retention period can't be shortened
+	- **Governance** mode: users can't overwrite or delete an object version or alter its lock settings unless they have special permissions
+	- **Compliance** mode: a protected object version can't be overwritten or deleted by any user, including the root user of the account. When an object is locked in compliance mode, its retention mode can't be changed and its retention period can't be shortened
 
 
 ## S3 Batch Operations
@@ -220,3 +220,16 @@ You can move between classes manually or using S3 Lifecycle configurations. The 
 - A job consists of a list of objects, the action to perform and optional paramters
 - S3 Batch Operations manages, retries, track progress, sends completion notifications, generate reports...
 - You can use **S3 Inventory** to get object list and use S3 Select to filter your objects
+
+
+## S3 Access Points
+- An Access Point can be attached to a bucket prefix
+- Access points will contain policies, specifying the allowed users/group to read/write into Objects in the bucket prefix
+- It's easier to manage than doing a very complex bucket policies
+- Useful when you have many prefixes with a lot of different permissions for each of them
+
+### S3 Object Lambda
+- Use AWS Lambda to change the object before it's retrieved by the caller application
+- Only one S3 bucket is needed, on top of which we create S3 Access Point and S3 Oject Lambda Access Point
+
+![[s3-object-lambda.png]]
