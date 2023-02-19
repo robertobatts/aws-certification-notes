@@ -42,12 +42,28 @@
 #### Example of global application with Lambda@Edge
 ![[lambda-edge-app-example.png]]
 
+### Lambda in VPC
+- By default your Lambda function is launched outside your own VPC (in an AWS-owned VPC), therefore it cannot access resources in your VPC (RDS, ElastiCache, internal ELB,...)
+- To launch it in your VPC, you must define the VPC ID, the subnets and the security groups
+- Lambda will create an ENI in your subnets
+
+![[lambda-in-vpc.png]]
+
+#### Lambda with RDS Proxy
+- If Lambda functions directly access your database, they may open too many connections under high load
+- RDS proxy will solve this issue by pooling and sharing DB connections
+- It improves availability by reducing by 66% the failover time and preserving connections
+- Improve security by enforcing IAM authentication and storing credentials in Secrets Manager
+- The Lambda function must be deployed in your VPC, because RDS Proxy is never publicly accessible
+
+![[lambda-rds-proxy.png]]
+
 ## DynamoDB
 - Fully managed, highly available with replication across multiple AZs
-- NoSQL database
+- NoSQL database with transaction support
 - Scales to massive workloads, distributed database
 - Millions of requests per seconds, trillions of row, 100s of TB of storage
-- Fast and consistent performance
+- Fast and consistent performance (single-digit millisecond)
 - Integrated with IAM for security, authorization and administration
 - Enables event driven programming with DynamoDB Streams
 - Low cost and auto-scaling capabilities
@@ -87,7 +103,7 @@
 ### DynamoDB Streams
 - ORdered stream of item-level modifications (create/update/delete) in a table
 - Stream records can be:
-	- Sent to Kinesis Data Streams
+	- Sent to Kinesis Data Streams (1 year retention in this case)
 	- Read by Lambda
 	- Ready by Kinesis Client Library applications
 	- Data retention for up to 24 hours
@@ -102,12 +118,40 @@
 - Applications can read and write to the table in any region
 - Must enable DynamoDB Streams as a pre-requisite
 
+### Time To Live
+- Automatically delete items after an expiry timestamp
+
 ### Indexes
 - Global Secondary Indexes (GSI) and Local Secondary Indexes (LSI)
 - Allow to query on attributes other than the Primary Key
 
 ### Transactions
 - Allow you to write to two tables at the same time, or to none of them
+
+### Backups for disaster recovery
+- Continuous backups using point-in-time recovery (PITR)
+	- Optionally enabled for the last 35 days
+	- Point-in-time revovery to any time within the backup window
+	- The recovery process creates a new table
+- On-demand backups:
+	- Full backups for long-term retention, until explicitely deleted
+	- Doesn't affect performance or latency
+	- Can be configured and managed in AWS Backup (enables cross-region copy)
+	- The recovery process creates a new table
+
+### Integration with S3
+- Export to S3 (must enable PITR)
+	- Works for any point of time in the last 35 days
+	- Doesn't affect the read capacity of your table
+	- Performa data analysis on top of DynamoDB
+	- Retain snapshots for auditing
+	- ETL on top of S3 data before imnporting back into DynamoDB
+	- Export in Dybamo JSON or ION format
+- Import to S3
+	- Import CSV, DynamoDB JOSN or ION  format
+	- Doesn't consume any write capacity
+	- Creates a new table
+	- Import errors are logged in CloudWatch
 
 
 ## API Gateway
@@ -128,9 +172,11 @@
 - **HTTP**
 	- Expose HTTP endopints in the backend
 	- You can connect it to an internal API on premise, ALB, etc...
+	- Why? Add rate limiting, caching, user authentications, API keys, etc...
 - **AWS Service**
 	- Expose any AWS API through the API Gateway
-	- Example: start an AWS Step Function workflow, post a message to SQS
+	- In this way we can expose a AWS service to users without giving them credentials to access them directly
+	- Example: start an AWS Step Function workflow, post a message to SQS, send a message to Kinesis Data Streams
 
 ### Endpoint Types
 - **Edge-Optimized (default)**
@@ -145,11 +191,17 @@
 
 ### Security
 #### IAM permissions
-- Create an IAM policy authorization and attach to User/ROle
+- Create an IAM policy authorization and attach to User/Role
 - API Gateway verifies IAM permissions passed by the calling application
 - Good to provide access within your own infrastructure
 - Leverages "Sig v4" capability where IAM credential are in headers
 - Handle authentication and authorization
+
+#### Custom Domain Name HTTPS
+- Security through integration with AWS Certificate Manageer (ACM)
+- If using Edge-Optimized endpoint, then the4 certificate must be in us-east-1
+- If using Regional endpoint, the certificate must be in the API Gateway region
+- Must setup CNAME or A-alias record in Route 53
 
 #### Lambda  Authorizer (formerly Custom Authorizer)
 - User AWS Lambda to validate the token in header being passed
@@ -173,7 +225,7 @@
 - Give users an identity so that they can interact with our application
 - **Cognito User Pools**
 	- Sign in functionality for app users
-	- Integrate with API Gateway
+	- Integrate with API Gateway and Application Load Balancer
 - **Cognito Identity Pools (Federated Identity)**
 	- Provide AWS credentials to users so they can access AWS resources directly
 	- Integrate with Cognito User Pools as an identity provider
@@ -182,12 +234,12 @@
 	- May be deprecated and replaced by AppSync
 
 ### Cognito User Pools (CUP)
-- Create a serverless database of users for your mobile apps
+- Create a serverless database of users for your web and mobile apps
 - Simple login: Username (or email) / password combination
 - Possibility to verify emails/phone numbers and add MFA
 - Can enable Federated Identities (Facebook, Google, SAML) (different from Identity pools)
 - Sends back a JSON Web Token (JWT)
-- Can be integrated with API Gateway for authentication
+- Can be integrated with API Gateway and ALB for authentication
 
 ### Federated Identity Pools
 It provides direct access to AWS Resources from the Client Side by:
@@ -198,14 +250,13 @@ It provides direct access to AWS Resources from the Client Side by:
 
 ![[federated-identity-pools-workflow.png]]
 
-### Cognito Sync
-- Deprecated - use AWS AppSync now
-- Store preferences, configuration, state of app
-- Cross device synchronization (any platform, iOS, Android, etc...)
-- Offline capability (synchronization when back online)
-- Requires Federated Identity Pool in Cognito (not User Pool)
-- Store data in datasets (up to 1MB)
-- Up to 20 datasets to synchronise
+
+## Step Functions
+- Vuild serverless visual workflow to orchestrate your Lambda functions
+- Features: sequence, parallel, conditions, timeouts, error handling, ...
+- Can integrate with EC2, ECS, on-premises servers, API Gateway, SQS, etc...
+- Possibility of implementing human approval feature
+- Use cases: order fulfillment, data processing, web applications, any workflow
 
 ## SAM - Serverless Application Model
 - Framework for developing and deploying serverless applications
