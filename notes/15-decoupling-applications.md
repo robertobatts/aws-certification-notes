@@ -77,6 +77,10 @@ This pattern can be implemented with SQS Temporary Queue Client
 - The name of the queue must end with ".fifo"
 - You can have one consumer per Group ID
 
+## SQS + Auto Scaling Group
+![[sqs-auto-scaling.png]]
+
+
 ## SNS - Simple Notification Service
 - The event producer only sends message to one SNS topic
 - Youu can set as many event receivers (subscriber) as you want to listen to the SNS topic notifications
@@ -130,7 +134,7 @@ Same security settings of SQS
 - Retention between 1 day to 365 days
 - Ability to reprocess (replay) data
 - Once data is inserted in Kinesis, it can't be deleted (immutability)
-- Data that shares the same partition goes to the same shard (ordering)
+- Data that shares the same partition key  goes to the same shard (ordering)
 - Can have only one consumer per shard
 - Producers: AWS SDK, Kinesis producer Library (KPL), Kinesis Agent
 - Consumers: Kinesis Client Library (KCL), AWS SDK, Lambda, Kinesis Data Firehose, Kinesis Data Analytics
@@ -142,7 +146,7 @@ Same security settings of SQS
 - **On-demand mode**:
 	- No need to provision or manage the capacity
 	- Default capacity provisioned (4 MB/s in or 4000 records per second)
-	- Scales automatically based on observed throughput pead during the last 30 days
+	- Scales automatically based on observed throughput peak during the last 30 days
 	- Pay per stream per hour and data in/out per GB
 
 ![[kinesis-data-streams.png]]

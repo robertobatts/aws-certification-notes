@@ -98,3 +98,31 @@ Docker images can be stored in Docker repositories
 - Kubernetes is cloud-agnostic
 
 ![[eks-diagram.png]]
+
+#### Node Types
+- Managed Node Grouops
+	- Creates and manages Nodes (EC2 instances) for you
+	- Nodes are part of an ASG managed by EKS
+	- Supports On-Demand or Spot Instances
+- Self-Managed Nodes
+	- Nodes created by you and registered to the EKS cluster and manged by an ASG
+	- You can use prebuilt AM - Amazon EKS Optimized ami
+	- Supports On-Demand or Spot Instances
+- AWS Fargate
+	- No maintenance required, no nodes managed
+
+#### Data Volumes
+- Need to specify StorageClass manifest on your EKS cluster
+- Leverages a Container Storage Interface (CSI) compliant driver
+- Supports for EBS, EFS, FSx
+- EFS is the only volume that works with 
+
+## App Runner
+- Fully managed service that makes it easy to deploy web apps and APIs at scale
+- No infrastructure experience required
+- You only need to setup vCPU, RAM, Auto Scaling and health checks
+- Start with your source code or container image
+- Automatically builds and deploy the web app
+- Automatic scaling, highly available, load balancer, encryption
+- VPC access support to connect to database, cache and queues
+- Use cases: web apps, APIs, microservices, rapid production deployments
