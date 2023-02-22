@@ -69,9 +69,9 @@
 	- Establish trust connections with your on-premise AD
 - **AD Connector**
 	- Directory Gateway to redirect to on-premise AD, supports MFA
-	- Users a re managed on the on-premise AD 
+	- Users are managed on the on-premise AD 
 - **Simple AD**
-	- AD-compatible managed directory on AWS
+	- AD-compatible managed directory on AWS, it doesn't use Microsoft AD at all
 	- Cannot be joined with on-premise AD
 
 ## AWS Organizations
@@ -82,6 +82,7 @@
 - Consolidated Billing across all accounts, single payment method
 - Pricing benefits from aggregated usage (volume discount for EC2, S3...)
 - API is available to automate AWS account creation
+- Shared reserved instances and Savings Plans discounts across accounts
 
 ### Multi Account Strategies
 - Create accounts per department, per cost center, per dev/test/prod, based on regulatory restrictions (using SCP), for better resource isolation, to have separate per-account service limits, isolated account for logging
@@ -119,12 +120,30 @@ if you want the master account of the old organization to also join the new orga
 2. Delete the old organization
 3. Repeat the process above to invite the old master account to the new org
 
+## IAM Roles vs Resource Based Policies
+- When you assume a role, you give up your original permissions and take the permissions assigned to the role
+- When using a resource-based policy, the pricingpal doesn't have to give up his permissions
+
 ## IAM Permission Boundaries
 - IAM Permission Boundaries are supported for users and roles (not groups)
 - Advanced feature to use a managed policy to set the maximum permissions an IAM entity can get
 - They specify the boundaries a IAM permission can set
 - Example: if permission boundary allows only S3, and we attach a policy to use EC2 for a user, the policy won't work because it's outside of the boundary
 - Use case: allow developers to self-assign policies and manage their own permissions, while making sure they can't excalate their priviles (= make themselves admin)
+
+## AWS Control Tower
+- Easy way to set up and govern a secure and compliant multi-account AWS environment based on best practises
+- AWS Control Tower uses AWS Organizations to create accounts
+- Benefits:
+	- Automate the set up of your environent in a few clicks
+	- Automate ongoing policy management using guardrails
+	- Detect policy violations and remediate them
+	- Montiro compliance through an interactive dashboard
+
+### Guardrails
+- Provides ongoing governance for your Control Tower environemnt (AWS accounts)
+- **Preventive Guardrail - using SCPs** (e.g. restrict Regions across all your accounts)
+- **Detective Guardrail - using AWS Config** (e.g. identify untagged resources)
 
 ## IAM Policy Evaluation Policy
 

@@ -1,6 +1,7 @@
 # AWS Monitoring and Audit
 
 ## CloudWatch
+
 ### CloudWatch Metrics
 - Cloudwatch provides metrics for every services in AWS
 - Metrics belong to namespaces
@@ -8,6 +9,13 @@
 - Up to 10 dimensions per metric
 - Metrics have timestamps
 - Can create dashboards of metrics
+
+#### Metric Streams
+- Continually stream CloudWatch metrics to a destination of your choice with near-real time delivery and low latency, you can send them to:
+	- Amazon Kinesis Data Firehose
+	- 3rd party service provider, e.g. Datadog, Dynatrace, New Relic, Splunk ...
+- Option to filter metrics to only stream a subset of them
+
 
 #### EC2 Detailed monitoring
 - EC2 instance metrics have metrics every 5 minutes
@@ -124,6 +132,36 @@
 - Example: allow/deny events from another AWS account or AWS region
 - Use case: aggregate all events from your AWS Organization in a single AWS account or AWS region
 
+### Container Insights
+- Collect, aggregate, summarize metrics and logs from containers
+- Available for containers on ECS, EKS, Kubernetes platform on EC2, Fargate (both ECS and EKS)
+- In EKS and Kubernetes on EC2, CloudWatch is using a containerized version of the CloudWatch Agent to discover containers
+
+### Lambda Insights
+- Monitoring and troubleshooting solution for serverless applications running on AWS Lambda
+- Collects, aggregates, and summarizes system-level metrics including CPU, time, memory, disc and network
+- Collects, aggregates and summarizes diagnostic information such as cold starts and Lambda worker shutdowns
+- Lambda Insights is provided as a Lambda layer
+
+### Contributor Insights
+- Analyze log data and create time series that display contributor data
+	- See metrics about the top-N contributors
+	- The total number of unique contributors and their usage
+- This helps you find top talkers and understand who or what is impacting system performance
+- Works for any AWS-generated logs (VPC, DNS, etc...)
+- For example, you can find bad hosts, identify heaviest network users, or find the URLs that generate the most errors
+- You can build your rules from scratch, or you can also use sample rules that AWS has created
+- CloudWatch also provides built-in rules that you can use to analyze metrics from other AWS services
+
+### Application Insights
+- Provides automated dashboards that show potential problems with monitored applications, to help isolate ongoing issues
+- Your applications have to run on Amazon EC2 Instances with selected technologies only (Java, .NET, Microsoft IIS Web Server, ...)
+- You can use other AWS resources such as EBS, RDS, ELB, ASG, SQS, DynamoDB, S3, ECS, EKS, SNS, API Gateway ...
+- Powered by SageMaker
+- Enahanced visibility into your application health to reduce the time it will take you to troubleshoot and repair your applications
+- Findings and alerts are sent to Amazon EventBridge and SSM OpsCenter
+
+
 ## CloudTrail
 - Provides governance, compliance and audit for your AWS Account
 - CloudTrail is enabled by default
@@ -144,17 +182,22 @@
 - **Insight Events**
 
 #### CloudTrail Insights
-- Enable CloudTrail Insights to detect unusual activity in your account:
+- Disabled by default
+- Detect unusual activity in your account:
 	- inaccurate resource provisioning
 	- hitting service limits
 	- burst of AWS IAM actions
 	- gaps in periodic maintenance activity
 - CloudTrail Insights analyzes normal management events to create a baseline, and then continuously analyzes write events to detect unusual patterns
+- CloudTrail can be set up to trigger EventBridge events
 
 #### CloudTrail Events Retention
 - Events are stored fro 90 days in CloudTrail
 - To keep events beyond this period, log them to S3 and use Athena to analyze them
 
+#### EventBridge - Intercept API Calls
+- You can send events to EventBridge from CloudTrail
+- For example, when there is a DeleteTable API call on DynamoDB, you can send events to EventBridge that sends an alert to SNS
 
 ## AWS Config
 - Helps with auditing and recording compliance of your AWS resources
