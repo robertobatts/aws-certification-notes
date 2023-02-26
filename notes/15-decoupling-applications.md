@@ -163,17 +163,6 @@ Same security settings of SQS
 
 ![[kinesis-data-firehose.png]]
 
-### Kinesis Data Analytics
-- Perform real-time analytics on Kinesis Streams using SQL
-- Fully managed, no servers to provision
-- Automatic scaling
-- Real-time analytics
-- Pay for actual consumption rate
-- Can create streams out of the real-time queries
-- Use cases: time-series analytics, real-time dashboards, real-time metrics 
-
-![[kinesis-data-analytics.png]]
-
 ## SQS vs SNS vs Kinesis
 
 ![[sqs-sns-kinesis-comparison.png]]

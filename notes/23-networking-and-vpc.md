@@ -40,6 +40,7 @@
 
 ## Internet Gateway (IGW)
 - Allow resources (e.g. EC2 instances) in a VPC to connect to the internet
+- It exists by default in the default VPC to allow internet connection to public subnets
 - It scales horizontally and is highly available and redundant
 - Must be created separately from a VPC
 - One VPC can only be attached to one IGW and vice versa
@@ -50,22 +51,22 @@
 ## Bastion Hosts
 - We can use Bastion Host to SSH into our private EC2 instance (private subnet)
 - The bastion is in the public subnet, which is then connected to all other private subnets
-- Bastion Host security group must be tightened
-- **Exam tip**: make sure the bastion host only has port 22 traffic from the IP address you need, not from the security groups of your other EC2 instances
+- Bastion Host security group must allow inbound from the internet on port 22 from restricted CIDR, for example the public CIDR of your corporation
+- Security Group of the EC2 instances in the private subnets must allow the security group of the Bastion Host, or the private IP of the bastion host
 
 ![[bastion-host.png]]
 
-## NAT Instace
-- Outdate, NAT Gateway is a better solution
+## NAT Instance
+- Outdated, NAT Gateway is a better solution
 - NAT = Network Address Translation
-- Allows EC2 instances in private subnets to connect  to the internet
+- Allows EC2 instances in private subnets to connect to the internet
 - Must be launched in a public subnet
 - Must disable EC2 setting: **Source/Destination Check**
 - Must have Elastic IP attached to it
 - Route Tables must be configured to route traffic from private subnets to the NAT instance
 - It's not highly available. If you want to have HA, you need to create multiple NAT instances
 - Bandwidth depends on EC2 instance type
-- You have to manage security groups
+- You have to manage security groups (allow HTTP/HTTPS traffic coming from private subnets, allow SSH from your home/work network, allow HTTP/HTTPS traffic to the internet)
 
 ![[nat-instance.png]]
 
