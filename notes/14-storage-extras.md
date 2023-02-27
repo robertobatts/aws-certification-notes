@@ -82,13 +82,13 @@ Another use case for using Snow family is edge computing
 - Support SMB protocol and Windows NTFS
 - Microsoft Active Directory integration, ACLs, user quotas
 - Can be mounted on Linux EC2 instances
-- Scal up to 10s of GB/s, millions of IOPS, 100s PB of data
+- Scale up to 10s of GB/s, millions of IOPS, 100s PB of data
 - Storage options:
 	- SSD - latency sensitive workloads
 	- HDD - broad spectrum of workloads
 - Can be accessed from your on-premises infrastructure (VPN or Direct Connect)
 - Can be configured to be Multi-AZ
-- Data is backed-up daily to S3
+- Data is backed-up daily to S3 for disaster recovery
 
 ### FSx for Lustre
 - Lustre is a parallel distributed file system for large scale computing
@@ -109,23 +109,41 @@ Another use case for using Snow family is edge computing
 	- Data is not replicated (doesn't persist if file server fails)
 	- High burst (6x faster, 200MBps per TiB)
 	- Usage: short term processing, optimize costs
-- **Persisten File System**
+- **Persistent File System**
 	- Long term storage
 	- Data is replicated within same AZ
 	- Replace failed files within minutes
 	- Usage: long term processing, sensitive data
+
+### Fsx for NetApp ONTAP
+- Managed NetApp ONTAP on AWS
+- File System compatible with NFS, SMB, iSCSI protocol
+- Move worloads running on ONTAP or NAS to AWS
+- Works with: Linux, Windows, MacOS, VMware Cloud on AWS, EC2, ECS, EKS
+- Storage shrinks or grows automatically
+- Snapshots, replication, low-cost, compression and data de-duplication
+
+### FSx for OpenZFS
+- Managed OpenZFS file system on AWS
+- File System compatible with NFS (v3, v4, v4.1, v4.2)
+- Move workloads running on ZFS to AWS
+- Works with: Linux, Windows, MacOS, VMware Cloud on AWS, EC2, ECS, EKS
+- Up to 1,000,000 IOPS with < 0.5ms latency
+- Snapshots, compression and low-cost
+- Point-in-time instantaneous cloning (helpful for testing new workloads)
 
 ## Storage Gateway
 - Bridge between on-premises data and cloud data in S3 (S3 is an AWS proprietary technology, so it cannot be stored on-premises)
 - Use cases: disaster recovery, backup and restore, tiered storage
 - 3 types of Storage Gateway:
 	- File Gateway
-	- Volum Gateway
+	- Volume Gateway
 	- Tape Gateway
 
 ### File Gateway
 - Configured S3 buckets are accessible using the NFS and SMB protocol
 - Supports S3 standard, S3 IA, S3 One Zone IA
+- Transition to S3 Glacier using a Lifecycle Policy
 - Bucket access using IAM roles for each File Gateway
 - Most recently used data is cached in the file gateway
 - Can be mounted on many servers
@@ -156,6 +174,17 @@ Another use case for using Snow family is edge computing
 - Integrate with existing auth systems (Microsoft Active Directory, LDAP, Amazon Cognito, custom)
 - Use cases: sharing files, public datasets, CRM, ERP
 
+## AWS Data Sync
+- Move large amount of data to and from
+	- On-premises / other cloud to AWS - needs agent
+	- AWS to AWS (different storage services) - no agent needed
+- Can synchronize to:
+	- Amazon S3 (any storage classes, including Glacier)
+	- Amazon EFS
+	- Amazon FSx
+- Replication tasks are not running continuously, they can be scheduled hourly, daily or weekly
+- **File permissions and metadata are preserved**
+- One agent task can use 10 Gbps, can setup a bandwidth limit
 
 ## All Storage Options Comparison
 - S3: Object Storage
@@ -163,8 +192,12 @@ Another use case for using Snow family is edge computing
 - EFS: Network File System for Linux instances, POSIX filesystem
 - FSx for Windows: Netowrk File System for Windows servers
 - FSx for Lustre: High Performance Computing Linux file system
+- FSx for NetApp ONTAP: High OS Compatibility
+- FSx for OpenZFS: Managed ZFS File system
 - EBS volume: Network storage for one EC2 instance at a time
 - Instance Storage: Physical storage for your EC2 instance (high IOPS)
 - Storage Gateway: File Gateway, Volume Gateway (cached or stored), Tape Gateway
-- Snowball/Snowmobile: to move large amount of data to the cloud, physically
+- Transfer Family: FTP, FTPS, SFTP interface on top of S3 or EFS
+- DataSync: Schedule data sync from on-premises to AWS, or AWS to AWS
+- Snowcone/Snowball/Snowmobile: to move large amount of data to the cloud, physically
 - Database: for specific workloads, usually with indexing and querying
