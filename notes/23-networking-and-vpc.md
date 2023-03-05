@@ -143,12 +143,14 @@
 	- Check Route Tables
 
 ### Type of endpoints
-- **Interface Endpoints**
+- **Interface Endpoints** (powered by PrivateLink)
 	- Provisions an ENI (private IP address) as an entry point (must attach a security group)
 	- Supports most AWS services
+	- You pay per hour and per GB of data processed
 - **Gateway Endpoints**
-	- Provisions a gateway and must be used as a target in a route table
+	- Provisions a gateway and must be used as a target in a route table (does not use security groups)
 	- Supports only S3 and DynamoDB
+	- Free
 
 ## VPC Flow Logs
 - Capture information about IP traffic going to your interfaces:
@@ -160,7 +162,7 @@
 - Captures network information from AWS managed interfaces too: ELB, RDS, ElastiCache, Redshift, WorkSpaces, NATGW, Transit Gateway, etc...
 - Can be used for analytics on usage patterns or malicious behavior
 - You can query VPC flow logs using Athena on S3 or CloudWatch Logs Insights
-- The records contain information about IP, ports, and Action (success or failure of the request due to SG/NACL)
+- The records contain information about IP and ports (source and destination), and Action (success or failure of the request due to SG/NACL)
 
 ## AWS Site-to-Site VPN
 - **Virtual Private Gateway (VGW)**
@@ -173,7 +175,7 @@
 #### Site-to-Site Connections
 - **Customer Gateway Device (on-premises)**
 	- Use public internet-routable IP address for your Customer Gateway device
-	- If it's behind a NAT device that's enabled for NAT traversal (NAT-T), use the public IP addresso f the NAT device
+	- If it's behind a NAT device that's enabled for NAT traversal (NAT-T), use the public IP addresso o f the NAT device
 - **Important step**: enable **Route Propagation** for the Virtual Private Gateway  in the route table that is associated with your subnets
 - If you need to ping your EC2 instances from on-premises, mae sure you add the ICMP protocol on the inbound of your security groups
 
@@ -195,7 +197,7 @@
 - Supports both IPv4 and IPv6
 - Use cases:
 	- Increase bandwidth throughput - working with large data sets, lower cost
-	- More consistent network experience - applocations using real-time data feeds
+	- More consistent network experience - applications using real-time data feeds
 	- Hybrid Environments (on premises + cloud)
 
 ![[direct-connect-diagram.png]]
@@ -232,8 +234,9 @@
 - You can peer Transit Gateways across regions
 - Route Tables: limit which VPC can talk with other VPC
 - Works with Direct Connect Gateway, VPN connections
-- Supports IP Multicast (not supported by any other AWS service)
+- Supports **IP Multicast** (not supported by any other AWS service)
 - You can share Direct Connect between multiple accounts by attaching it to a Transit Gateway
+- You can add multiple Site-to-Site VPN connections to a Transit Gateway, while with Virtual Private Gateway you can have only one
 
 ## VPC - Traffic Mirroring
 - Allows you to capture and inspect network traffic in your VPC
