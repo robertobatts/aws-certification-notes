@@ -122,8 +122,10 @@
 - Automatically delete items after an expiry timestamp
 
 ### Indexes
-- Global Secondary Indexes (GSI) and Local Secondary Indexes (LSI)
 - Allow to query on attributes other than the Primary Key
+- **Local Secondary Index**: index with same partition key of the table, but different sort key
+- **Global Secondary Index**: index with diffrent partition key and sort key from the table
+- You can define up to 20 global indexes and 5 local indexes
 
 ### Transactions
 - Allow you to write to two tables at the same time, or to none of them
