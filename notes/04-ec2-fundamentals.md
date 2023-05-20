@@ -135,11 +135,11 @@ Instead, you should create an AWS Role for it. After doing this, you will be abl
 - You can buy and sell in the Reserved Instance Marketplace
 
 #### EC2 Convertible Reserved Instances
-- Can change the EC2 instance tpye, instance family, OS, scope and tenancy
+- Can change the EC2 instance type, instance family, OS, scope and tenancy
 - Up to 66% discount
 
 ### EC2 Saving Plans Instances
-- Ged a discount up to 72% based on long-term usage
+- Get a discount up to 72% based on long-term usage
 - Commit to a certain type of usage (e.g. 10$/hour for 1 or 3 years)
 - Usage beyond EC2 Saving Plans is billed at the On-Demand price
 - Locked to a specific instance family and AWS region (e.g. M5 in us-east-1)
@@ -158,8 +158,8 @@ Spot instances can be one-time type or persistent. If they are one-time, once th
 ![[spot-instance-onetime-vs-persistent.png]]
 
 ### EC2 Dedicated Hosts
-- A physical server with EC2 instance capacity fulli dedicated to your use
-- Allows you to a ddress compliance requirements in your company and use your existing server-bound software licenses
+- A physical server with EC2 instance capacity fully dedicated to your use
+- Allows you to address compliance requirements in your company and use your existing server-bound software licenses
 - Purchasing Options:
 	- On-Demand
 	- Reserved
@@ -182,7 +182,7 @@ Spot instances can be one-time type or persistent. If they are one-time, once th
 ### Spot Fleets
 It's a set of Spot Instances + optional On-Demand Instances.
 Spot Fleet will try to reach the target capacity following your price constraints:
-- Define Instance Type, OS, AV
+- Define Instance Type, OS, AZ
 - Can have multiple launch pools, so that the fleet can choose
 - It stops launching instances when reaching capacity or max cost
 

@@ -144,7 +144,7 @@ Keys are bounded to a specific regions. To migrate an encrypted EBS volume to a 
 2. Select Validation Method: DNS Validation or Email validation
 	- DNS Validation is preferred for automation purposes
 	- Email validation will send emails to contact addresses in the WHOIS database
-	- DNS Validation will leaverage a CNAM record to DNS config
+	- DNS Validation will leaverage a CNAME record to DNS config
 3. It will take a few hours to get verified
 4. The Public Certificate will be enrolled for automatic renewal
 	- ACM automatically renews ACM-generated certificates 60 days before expiry
@@ -163,10 +163,10 @@ Keys are bounded to a specific regions. To migrate an encrypted EBS volume to a 
 	- Request are routed through the CloudFront Edge locations
 	- The API Gateway still lives in only one region
 	- The TLS Certificate must be in the same regions as CloudFront, in us-east-1
-	- Then setup CNAM or A-Alias record in Route 53
+	- Then setup CNAME or A-Alias record in Route 53
 - Regional:
 	- The TLS Certificate must be imported on API Gateway, in the same regions as the API Stage
-	- Then setup CNAM or A-Alias record in Route 53
+	- Then setup CNAME or A-Alias record in Route 53
 
 ## Web Application Firewall (WAF)
 - Protects you web apps from common web exploits (layer 7)

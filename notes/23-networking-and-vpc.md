@@ -311,6 +311,6 @@
 	- Stateful domain list rule groups
 	- General pattern matching using regex
 - Traffic filtering: Allow, drop, or alert for the traffic that matches the rules
-- Active flow inspection to protect against network threats with intrusion prevention capabilities (like Gateway Load Balancer nut is all managed by AWS)
+- Active flow inspection to protect against network threats with intrusion prevention capabilities (like Gateway Load Balancer but is all managed by AWS)
 - Send logs of rule matches to S3, CloudWatch Logs, Kinesis Data Firehose
 
