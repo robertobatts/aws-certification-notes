@@ -53,7 +53,7 @@ Target groups can be:
 - Lambda functions
 - Private IP addresses
 
-ALB can route to multiple target grouops, and the health check are done at the target group level.
+ALB can route to multiple target groups, and the health checks are done at the target group level.
 In the following example, we route the traffic into two different target groups based on a query parameter
 ![[alb-traffic-2.png]]
 
@@ -93,9 +93,9 @@ In the following example, we route the traffic into two different target groups 
 ## ELB Sticky Sessions
 - It's possible to implement stickiness so that the same client is always redirected to the same instance behind a load balancer
 - This works for CLB and ALB
-- The cookie used for stickiness has an expiration date you can controle
+- The cookie used for stickiness has an expiration date you can control
 - Use case: make sure the user doesn't lose his session data
-- Enabling stickiness may bring  imbalance to the load over the backend EC2 instances
+- Enabling stickiness may bring inbalance to the load over the backend EC2 instances
 
 ### Cookie Types
 ##### Application-based Cookies
@@ -212,7 +212,7 @@ This feature is named as Deregistration Delay for ALB and NLB, and as Connection
 2. If there a re multiple instances in the AZ to choose from, delete the one with the oldest launch configuration
 
 #### Lifecycle Hooks
-- By default, as soon as an isntance is launched in an ASG it's in service
+- By default, as soon as an instance is launched in an ASG it's in service
 - You have the ability to perform extra steps before the instance goes in service (Pending state)
 - You have the ability to perform some actions before the instance is terminated (Terminating state)
 ![[asg-lifecycle-hooks.png]]

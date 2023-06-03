@@ -23,7 +23,7 @@
 ## Identity Federation in AWS
 - Federation lets users outside of AWS to assume temporary role for accessing AWS resources
 - These users assume identity provided access role
-- Federations can have many flavors:
+- Federations can have many flavours:
 	- SAML 2.0
 	- Custom Identity Broker
 	- Web Identity Federation with Amazon Cognito

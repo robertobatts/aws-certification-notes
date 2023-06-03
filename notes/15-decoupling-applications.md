@@ -10,7 +10,7 @@
 
 ### Producing Messages
 - Produced to SQS using SDK (SendMessage API)
-- The message is persisted in SQS until a consumer delets it
+- The message is persisted in SQS until a consumer deletes it
 
 ### Consuming Messages
 - Consumers can run on EC2 instances, server, lambda, etc...

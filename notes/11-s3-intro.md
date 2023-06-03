@@ -1,7 +1,7 @@
 # Amazon S3 Introduction
 
 ## Buckets
-- S3 allows people to store objectes (files) in buckets (directories)
+- S3 allows people to store objects (files) in buckets (directories)
 - Buckets must have a globally unique name
 - Buckets are defined at the region level
 - Naming convention: no uppercase, no underscore, 3-63 characters long, not an IP, must start with lowercase letter or number
@@ -52,7 +52,7 @@ There are 4 methods of encrypting objects in S3:
 - You can use client library such as Amazon S3 Encryption Client
 - Clients must encrypt data themselves before sending to S3
 - Clients must decrypt data themselves when retrieving from S3
-- Customer fully manages the keys and ancryption cycle
+- Customer fully manages the keys and encryption cycle
 
 ### Encryption in transit (SSL/TLS)
 - Amazon S3 exposes:
@@ -96,7 +96,7 @@ There are 4 methods of encrypting objects in S3:
 ## S3 Websites
 - S3 can host static websites and have them accessible on the www
 - If you get a 403 (Forbidden) error, make sure the bucket policy allows public reads!
-- The website URL will be bucket-name.s3-website.AWS-region.amazonaws.com
+- The website URL will be `bucket-name.s3-website.region.amazonaws.com` or `bucket-name.s3-website-region.amazonaws.com`
 
 ## CORS
 - An **origin** is a scheme (protocol), host (domain) and port
@@ -109,12 +109,12 @@ There are 4 methods of encrypting objects in S3:
 - You can allow for a specific origin or for * (all origins)
 
 ## S3 Replication
-- You can replicate asyncronously a bucket into another region
+- You can replicate asynchronously a bucket into another region
 - Must enable Versioning in source and destination buckets
 - **Cross Region Replication (CRR)**
 - **Same Region Replication (SRR)**
 - Buckets can be in different AWS accounts
-- Must give proper IAM perfmissions to S3 for read/write
+- Must give proper IAM permissions to S3 for read/write
 - After you enable Replication, only new objects are replicated
 	- You can replicate existing objects using **Batch Replication**
 - Use cases:

@@ -59,7 +59,7 @@ The only disadvantage is that you can't SSH into your instances
 ### Turn a Single-AZ RDS into Multi-AZ
 - Zero downtime operation (no need to stop the DB)
 - Just click on "modify" for the database
-- Behind the scenese, the following happens:
+- Behind the scenes, the following happens:
 	- A snapshot is taken
 	- A new DB is restored from the snapshot in a new AZ
 	- Synchronization is established between the two databases
@@ -124,7 +124,7 @@ The only disadvantage is that you can't SSH into your instances
 -  Never publicly accessible, must be accessed from VPC
 
 ## Amazon Aurora
-- Aurora is a properietary (not open sourced)
+- Aurora is a properietary (not open sourced) technology
 - Postgres and MySQL are both supported as AuroraDB, this means your drivers will work as if Aurora was a Postgres or MySQL database
 - Aurora is "AWS cloud optimized" and claims 5x performance improvement over MySQL on RDS, over 3x performance of Postgres on RDS
 - Aurora storage automatically grows in increments of 10GB, up to 128 TB

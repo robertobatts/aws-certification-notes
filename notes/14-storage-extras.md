@@ -22,7 +22,7 @@
 ### Snowcone
 - Small, portable computing, anywhere, rugged and secure, withstands harsh environments
 - Device used for edge computing, storage, end data transfer
-- 8 THbs of usable storage
+- 8 TB of usable storage
 - Use Snowcone where Snowball doesn't fit (space-constrained environment)
 - Must provide your own battery/cables
 - Can be sent back to AWS offline, or connect it to internet and use AWS DataSyc to sed data

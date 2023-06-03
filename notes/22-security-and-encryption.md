@@ -3,7 +3,6 @@
 ## KMS - Key Management Service
 - Easy way to control access to your data, AWS manages keys for use
 - Fully integrated with IAM for authorization
-- Fully integrated with IAM for authorization
 - Seamlessly integrated into EBS, S3, Redshift, RDS, SSM, etc...
 - You can also use the CLI/SDK
 - Able to fully manage the keys and policies to Create, Disable, Enable and Rotation policies
@@ -57,7 +56,7 @@ Keys are bounded to a specific regions. To migrate an encrypted EBS volume to a 
 - New key has a different CMK ID
 - Keep the previous key active so you can decrypt old data
 - Better to use aliases in this case (to hide the change of key for the application)
-- Good solution to rotate CMK that are not eligible for automatica rotation (like asymmetric CMK)
+- Good solution to rotate CMK that are not eligible for automatic rotation (like asymmetric CMK)
 
 ## KMS Multi-Region Keys
 - Replicate the same key with the same id and same rotation across multiple regions
@@ -150,7 +149,7 @@ Keys are bounded to a specific regions. To migrate an encrypted EBS volume to a 
 	- ACM automatically renews ACM-generated certificates 60 days before expiry
 
 ### Importing Public Certificates
-- You can generate the certificate outside of ACM and then imnport it
+- You can generate the certificate outside of ACM and then import it
 - No automatic renewal, must import a new certificate before expiry
 - ACM sends daily expiration events starting 45 days prior to expiration
 	- The number of days can be configured

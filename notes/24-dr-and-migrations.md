@@ -69,16 +69,18 @@ Snapshots are faster to restore than Snowball, because sending Snowball back to 
 **Sources**:
 - On-Premise and EC2 instances databases: Oracle, MS SQL Server, MySQL, MariaDB, PostgreSQL, MongoDB, SAP, DB2
 - Azure: Azure SQL Database
-- Amazon RDS: all including Aurora
+- Amazon RDS
+- Amazon Aurora
 - Amazon S3
 
 **Targets**:
 - On-Premise and EC2 instances databases: Oracle, MS SQL Server, MySQL, MariaDB, PostgreSQL, SAP
 - Amazon RDS
+- Amazon Aurora
 - Amazon Redshift
 - Amazon DynamoDB
 - Amazon S3
-- ElasticSearch Service
+- OpenSearch Service
 - Kinesis Data Streams
 - DocumentDB
 
