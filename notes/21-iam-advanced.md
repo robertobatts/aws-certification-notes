@@ -67,7 +67,7 @@
 - **AWS Managed Microsft AD**
 	- Create your own AD in AWS, manage users locally, supports MFA
 	- Establish trust connections with your on-premise AD
-- **AD Connector**
+- ** AD Connector**
 	- Directory Gateway to redirect to on-premise AD, supports MFA
 	- Users are managed on the on-premise AD 
 - **Simple AD**

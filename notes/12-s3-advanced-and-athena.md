@@ -9,16 +9,16 @@
 - MFA-Delete currently can only be enabled using the CLI
 
 ## S3 Access Logs
-- You can log any request made to S3, from any account, authorized or denied
+- You can log any request made to S3, from any account, authorised or denied
 - The logs will go into another S3 bucket
-- This data can also be analyzed using data analysis tools
+- This data can also be analysed using data analysis tools
 - **Important to know**
 	- DO NOT set your logging bucket to be the monitored bucket, otherwise it will create a logging loop, and your bucket will grow in size exponentially
 
 
 ## S3 Default Encryption
-- One way to force encryption is to use a bucket policy and refuce any API call to PUT an S3 object without encryption headers
-- Another way is to use the "default encruption" option in S3
+- One way to force encryption is to use a bucket policy and refuse any API call to PUT an S3 object without encryption headers
+- Another way is to use the "default encryption" option in S3
 - Note: Bucket Policies are evaluated before default encryption
 
 ## S3 Replication (CRR and SRR)
@@ -26,7 +26,7 @@
 - Cross Region Replication (CRR)
 - Same Region Replication (SRR)
 - Buckets can be in different accounts
-- Copying is asyncronous
+- Copying is asynchronous
 - Must give proper IAM permissions to S3
 
 **CRR Use cases**: compliance, lower latency access, replication across accounts
@@ -48,7 +48,7 @@
 ## S3 Storage Classes
 You can move between classes manually or using S3 Lifecycle configurations. The types of storage classes are the following:
 - Standard - General Purpose
-- Stanrdard-Infrequent Access (IA)
+- Standard-Infrequent Access (IA)
 - One Zone-Infrequent Access
 - Glacier Instant Retrieval
 - Glacier Flexible Retrieval
@@ -120,9 +120,9 @@ You can move between classes manually or using S3 Lifecycle configurations. The 
 ## S3 Lifecycle Rules
 - **Transition actions**: it defines when objects are transitioned to another storage class
 	- Move objects to Standard IA class 60 days after creation
-	- Move to Clacier for archiving after 6 months
+	- Move to Glacier for archiving after 6 months
 - **Expiration actions**: configure objects to expire (delete) after some time
-	- Accesss log files can be set to delete after 365 days
+	- Access log files can be set to delete after 365 days
 	- Can be used to delete old versions of files (if versioning is enabled)
 	- Can be used to delete incomplete multi-part uploads *
 - Rules can be created for a certain prefix (e.g. s3://mybucket/mp3/* )
@@ -150,7 +150,7 @@ You can move between classes manually or using S3 Lifecycle configurations. The 
 
 ### Multi-Part Upload
 - Recommended for files > 100 MB, must use for files > 5 GB
-- Can help parallelize uploads 
+- Can help parallelise uploads 
 
 ### Transfer Acceleration
 - Increase transfer speed by transferring file to an AWS edge location which will forward the data to the S3 bucket in the target region
@@ -158,7 +158,7 @@ You can move between classes manually or using S3 Lifecycle configurations. The 
 - The name of the bucket must be DNS compliant and not contain periods in order to use Transfer Acceleration
 
 ### Byte-Range Fetches
-- Parallelize GETs by requesting specific byte ranges
+- Parallelise GETs by requesting specific byte ranges
 - Better resilience in case of failures
 - Can be used to speed up downloads
 - Can be used to retrieve partial data

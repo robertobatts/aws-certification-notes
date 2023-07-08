@@ -175,9 +175,9 @@
 #### Site-to-Site Connections
 - **Customer Gateway Device (on-premises)**
 	- Use public internet-routable IP address for your Customer Gateway device
-	- If it's behind a NAT device that's enabled for NAT traversal (NAT-T), use the public IP addresso o f the NAT device
+	- If it's behind a NAT device that's enabled for NAT traversal (NAT-T), use the public IP address of the NAT device
 - **Important step**: enable **Route Propagation** for the Virtual Private Gateway  in the route table that is associated with your subnets
-- If you need to ping your EC2 instances from on-premises, mae sure you add the ICMP protocol on the inbound of your security groups
+- If you need to ping your EC2 instances from on-premises, make sure you add the ICMP protocol on the inbound of your security groups
 
 ![[site-to-site-vpn.png]]
 
@@ -307,7 +307,7 @@
 - Rules can be centrally managed cross-account by AWS Firewall Manager to apply to many VPCs
 - Supports 1000s of rules, you can filter by:
 	- IP and port
-	- Protcol
+	- Protocol
 	- Stateful domain list rule groups
 	- General pattern matching using regex
 - Traffic filtering: Allow, drop, or alert for the traffic that matches the rules
