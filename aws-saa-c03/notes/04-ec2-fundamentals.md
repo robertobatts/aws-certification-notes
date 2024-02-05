@@ -25,7 +25,7 @@
 	- Installing updates
 	- Installing software
 	- Downloading common files
-A simple example of EC2 User Data script can be found in [ec2-user-data.sh](../code/ec2-user-data.sh)
+A simple example of EC2 User Data script can be found in [ec2-user-data.sh](ec2-user-data.sh)
 
 ## Instance Types
 All the AWS Instance Types are listed here https://aws.amazon.com/ec2/instance-types/. You can instead use https://instances.vantage.sh/ to compare all their features and their prices.
